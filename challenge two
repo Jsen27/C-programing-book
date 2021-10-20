@@ -1,0 +1,132 @@
+#include <stdio.h>
+
+void obb(int arr[10]);
+void even(int arr[10]);
+void binary(int n);
+void Palindrome(char pal[100]);
+void DesSort(int down[7]);
+
+int main() {
+	// 도전 1번
+	int i;
+	int arr[10];
+	printf("총 10개의 숫자 입력\n");
+	for (i = 0; i < 10; i++) 
+		scanf_s("%d", &arr[i]);
+	
+	obb(arr);
+	even(arr);
+
+	
+	// 도전 2번
+	int n;
+	printf("10진수 정수 입력 : ");
+	scanf_s("%d", &n);
+	binary(n);
+
+
+
+	// 도전 3번
+	printf("총 10개의 숫자 입력\n");
+	int arr2[10];
+	int temp;
+	int acount = 0, ocount = 0;
+	for (i = 0; i < 10; i++) {
+		scanf_s("%d", &temp);
+		if (temp % 2 != 0) {
+			arr2[i - ocount] = temp;
+			acount++;
+		}
+		else {
+			arr2[9 - i + acount] = temp;
+			ocount++;
+		}
+	}
+	for (i = 0; i < 10; i++) {
+		printf("%d ", arr2[i]);
+	}
+	printf("\n\n\n");
+
+	// 도전 4번
+	char pal[100];
+	printf("문자열 입력 : ");
+	scanf_s("%s", pal, sizeof(pal));
+	Palindrome(pal);
+
+	// 도전 5번
+	int down[7];
+	printf("내림차순으로 정렬 할 7개의 정수 입력\n");
+	for (i = 0; i < 7; i++)
+		scanf_s("%d",&down[i]);
+	DesSort(down);
+
+	return 0;
+}
+
+
+void obb(int arr[10]) {
+	int i;
+	printf("홀수 출력 : ");
+	for (i = 0; i <= 9; i++) {
+		if (arr[i] % 2 != 0)
+			printf("%d, ", arr[i]);
+	}
+	printf("\n");
+}
+
+void even(int arr[10]) {
+	int i;
+	printf("짝수 출력 : ");
+	for (i = 0; i <= 9; i++) {
+		if (arr[i] % 2 == 0)
+			printf("%d, ", arr[i]);
+	}
+	printf("\n\n\n");
+}
+
+void binary(int n) {
+	int i, pos = 0;
+	int res[20];
+	for (i = 0; n >= 1; i++) {
+		res[i] = n % 2;
+		n = n / 2;
+		pos++;
+	}
+	for (i = pos - 1; i >= 0; i--) {
+		printf("%d", res[i]);
+	}
+	printf("\n\n\n");
+}
+
+void Palindrome(char pal[100]) {
+	int i;
+	int count = 0;
+	for (i = 0; pal[i] != 0; i++)
+		count++;
+
+	for (i = 0; i < count / 2; i++) {
+		if (pal[i] != pal[count - 1 - i]) {
+			printf("회문이 아닙니다.");
+			printf("\n\n\n");
+			return;
+		}
+	}
+	printf("회문입니다.");
+	printf("\n\n\n");
+}
+
+void DesSort(int down[7]) {
+	int i, j, temp;
+	for (i = 0; i < 6; i++) {
+		for (j = 0; j < 6 - i; j++) {
+			if (down[j] < down[j + 1]) {
+				temp = down[j];
+				down[j] = down[j + 1];
+				down[j + 1] = temp;
+			}
+
+		}
+	}
+	for (i = 0; i < 7; i++)
+		printf("%d ", down[i]);
+}
