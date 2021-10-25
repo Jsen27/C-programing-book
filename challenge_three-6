@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main(void) {
+	int a, b, c;
+	int q, w, e;
+	int st = 0, ba = 0, count = 1;
+	
+	srand((int)time(NULL));
+	a = rand() % 10;
+	b = rand() % 10;
+	c = rand() % 10;
+	
+	printf("**********야구 게임**********\n\n\n");
+
+	while (1)
+	{
+		printf("3개의 숫자 선택 : ");
+		scanf_s("%d %d %d", &q, &w, &e);
+		if (q == a)
+			st++;
+		else if (q == b || q == c)
+			ba++;
+		if (w == b)
+			st++;
+		else if (w == a || w == c)
+			ba++;
+		if (e == c)
+			st++;
+		else if (e == a || e == b)
+			ba++;
+		printf("%d번째 도전 결과 : %dstrike, %dball!!\n\n\n\n", count, st, ba);
+		count++;
+		ba = 0;
+		if (st >= 3)
+		{
+			printf("Game End!\n\n\n");
+			printf("********************\n\n\n");
+			return 0;
+		}
+	}
+
+	return 0;
+}
