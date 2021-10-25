@@ -29,7 +29,7 @@ int main(void) {
 			else
 			{
 				printf("당신은 바위 선택, 컴퓨터는 보 선택. 당신이 패배하였습니다.\n\n\n");
-				printf("당신의 전적 : %d승 %d무\n", a, b);
+				printf("당신의 전적 : %d승 %d무\n\n\n", a, b);
 				printf("************************************");
 				return 0;
 			}
@@ -49,7 +49,7 @@ int main(void) {
 			else
 			{
 				printf("당신은 가위 선택, 컴퓨터는 바위 선택. 당신이 패배하였습니다.\n\n\n");
-				printf("당신의 전적 : %d승 %d무\n", a, b);
+				printf("당신의 전적 : %d승 %d무\n\n\n", a, b);
 				printf("************************************");
 				return 0;
 			}
@@ -69,13 +69,13 @@ int main(void) {
 			else
 			{
 				printf("당신은 보 선택, 컴퓨터는 가위 선택. 당신이 패배하였습니다.\n\n\n");
-				printf("당신의 전적 : %d승 %d무\n", a, b);
+				printf("당신의 전적 : %d승 %d무\n\n\n", a, b);
 				printf("************************************");
 				return 0;
 			}
 		}
 		else
-			printf("잘못 입력하였습니다.\n");
+			printf("잘못 입력하였습니다.\n\n\n");
 	}
 
 	return 0;
