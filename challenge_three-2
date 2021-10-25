@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+int main() {
+	int map[50][50]; // 여유있게 선언
+	int i, j, n;
+	int x = -1, y = 0, count = 0; // ++로 시작하기 위해 -1로 선언
+	int sw = 1; // 방향 스위치
+	
+	scanf_s("%d", &n); // n x n
+	
+	for (i = 0; i < n; i++) { // 첫번째 줄
+		x++;
+		count++;
+		map[y][x] = count;
+	}
+
+	for (i = n - 1; i > 0; i--)
+	{
+		for (j = i; j >= 1; j--) // 세로
+		{
+			if (sw == 1)
+				y++;
+			else
+				y--;
+			count++;
+			map[y][x] = count;
+		}
+
+		for (j = i; j >= 1; j--) // 가로
+		{
+			if (sw == 1)
+				x--;
+			else
+				x++;
+			count++;
+			map[y][x] = count;
+		}
+		sw *= -1; // 방향 전환
+	}
+
+	for (i = 0; i < n; i++) // 출력
+	{
+		for (j = 0; j < n; j++)
+		{
+			printf("%3d", map[i][j]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
