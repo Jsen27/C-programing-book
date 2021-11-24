@@ -1,0 +1,174 @@
+#define _CRT_SECURE_NO_WARNINGS 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct
+{
+	char name[50];
+	char num[50];
+}book;
+
+int filescan(book* person, int* cnt)
+{
+	int state;
+	FILE* file = fopen("numberbook.txt", "rt");
+
+	if (file == NULL)
+	{
+		printf("파일 불러오기 실패 !\n");
+		return 1;
+	}
+
+	while (1)
+	{
+		if (fscanf(file, "%s %s", person[*cnt].name, person[*cnt].num) == EOF)
+			break;
+		*cnt += 1;
+	}
+
+	state = fclose(file);
+	if (state != 0)
+	{
+		printf("파일 닫기 실패 !\n");
+		return 1;
+	}
+}
+
+int fileprint(book* person, int* cnt)
+{
+	int state, i;
+	FILE* file = fopen("numberbook.txt", "wt");
+
+	if (file == NULL)
+	{
+		printf("파일 불러오기 실패 !\n");
+		return 1;
+	}
+
+	for (i = 0; i < *cnt; i++)
+		fprintf(file, "%s %s\n", person[i].name, person[i].num);
+
+	state = fclose(file);
+	if (state != 0)
+	{
+		printf("파일 닫기 실패 !\n");
+		return 1;
+	}
+	return 0;
+}
+
+void insert(book* person, int* cnt)
+{
+	printf("\n\n[입력]\n");
+	printf("이름 : ");
+	scanf("%s", person[*cnt].name);
+	printf("전화번호 : ");
+	scanf("%s", person[*cnt].num);
+	*cnt += 1;
+	printf("---------------> 추가 완료\n\n");
+}
+
+void delete(book* person, int* cnt)
+{
+	int i, j;
+	char name[50] = { '\0' };
+	printf("\n\n[삭제]\n");
+	printf("이름 : ");
+	scanf("%s", name);
+	for (i = 0; i < *cnt; i++)
+	{
+		if (strcmp(name, person[i].name) == 0)
+		{
+			for (j = i; j < *cnt - 1; j++)
+			{
+				*person[i].name = *person[i + 1].name;
+				*person[i].num = *person[i + 1].name;
+			}
+			*person[*cnt - 1].name = '\0';
+			*person[*cnt - 1].num = '\0';
+			*cnt -= 1;
+			printf("---------------> 삭제 완료\n\n");
+			return;
+		}
+	}
+	printf("---------------> 대상 삭제 실패\n\n");
+}
+
+void search(book* person, int* cnt)
+{
+	int i;
+	char name[50] = { '\0' };
+	printf("\n\n[검색]\n");
+	printf("이름 : ");
+	scanf("%s", name);
+	for (i = 0; i < *cnt; i++)
+	{
+		if (strcmp(name, person[i].name) == 0)
+		{
+			printf("%s님의 전화번호 : %s\n", person[i].name, person[i].num);
+			printf("---------------> 검색 완료\n\n");
+			return;
+		}
+	}
+	printf("---------------> 대상 찾기 실패\n\n");
+}
+
+void printALL(book* person, int* cnt)
+{
+	int i;
+	printf("\n\n[전체 정보 출력\n");
+	for (i = 0; i < *cnt; i++)
+	{
+		printf("%d. 이름 : %s\n", i + 1, person[i].name);
+		printf("%d. 전화번호 : %s\n\n", i + 1, person[i].num);
+	}
+	printf("---------------> 출력 완료\n\n");
+}
+
+int main()
+{
+	int n;
+	int cnt = 0;
+	book person[30];
+	filescan(person, &cnt);
+	while (1)
+	{
+		printf("----------메뉴----------\n");
+		printf("\t\t1. 입력\n");
+		printf("\t\t2. 삭제\n");
+		printf("\t\t3. 검색\n");
+		printf("\t\t4. 전체 정보 출력\n");
+		printf("\t\t5. 종료\n");
+		printf("번호 선택 : ");
+		scanf("%d", &n);
+		switch (n)
+		{
+		case 1:
+			insert(person, &cnt);
+			break;
+		case 2:
+			delete(person, &cnt);
+			break;
+		case 3:
+			search(person, &cnt);
+			break;
+		case 4:
+			printALL(person, &cnt);
+			break;
+		case 5:
+			printf("\n\n프로그램을 종료합니다.\n이용해주셔서 감사합니다.\n\n\n");
+			fileprint(person, &cnt);
+			return 0;
+		default:
+			printf("잘못 입력하셨습니다.\n\n");
+			break;
+		}
+		printf("\n\n\n");
+	}
+
+
+
+
+	return 0;
+}
